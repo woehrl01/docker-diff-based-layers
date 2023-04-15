@@ -1,19 +1,20 @@
-old:
-  image: "${OLD_IMAGE}"
-  volumes:
-    - .:/.docker-image-diff/
-  command: /.docker-image-diff/expose-filesystem-root.sh
-  expose:
-    - "873"
-new_large_layer:
-  image: "${NEW_IMAGE}"
-  links:
-   - old
-  volumes:
-    - .:/.docker-image-diff/
-    - ./output/:/.docker-image-diff-output/
-  environment:
-    - RESTRICT_DIFF_TO_PATH=${RESTRICT_DIFF_TO_PATH}
-    - OUT=/.docker-image-diff-output
-  working_dir: /.docker-image-diff/
-  command: /.docker-image-diff/create-changelog-to-go-from-old-to-new.sh
+services:
+  old:
+    image: "${OLD_IMAGE}"
+    volumes:
+      - .:/.docker-image-diff/
+    command: /.docker-image-diff/expose-filesystem-root.sh
+    expose:
+      - "873"
+  new_large_layer:
+    image: "${NEW_IMAGE}"
+    links:
+      - old
+    volumes:
+      - .:/.docker-image-diff/
+      - ./output/:/.docker-image-diff-output/
+    environment:
+      - RESTRICT_DIFF_TO_PATH=${RESTRICT_DIFF_TO_PATH}
+      - OUT=/.docker-image-diff-output
+    working_dir: /.docker-image-diff/
+    command: /.docker-image-diff/create-changelog-to-go-from-old-to-new.sh

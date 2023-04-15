@@ -1,5 +1,6 @@
-shell:
-  environment:
-    - OLD_IMAGE=${OLD_IMAGE}
-    - NEW_IMAGE=${NEW_IMAGE}
-    - RESTRICT_DIFF_TO_PATH=${RESTRICT_DIFF_TO_PATH}
+services:
+  shell:
+    environment:
+      - OLD_IMAGE=${OLD_IMAGE}
+      - NEW_IMAGE=${NEW_IMAGE}
+      - RESTRICT_DIFF_TO_PATH=${RESTRICT_DIFF_TO_PATH}

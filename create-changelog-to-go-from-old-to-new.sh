@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set -e
+
+# install rsync
+apt-get update && apt-get install -y rsync
+
 # Use rsync to figure out what changes are necessary to go from old image contents to new
 echo "List of changes necessary to go from old image contents to new: "
 rsync -a -x --human-readable --delete-after --checksum --dry-run --itemize-changes --exclude .docker-image-diff "$RESTRICT_DIFF_TO_PATH/" "rsync://rsync@old/root$RESTRICT_DIFF_TO_PATH/" | tee $OUT/changes.rsync.log
@@ -26,3 +31,5 @@ echo "Changes not accounted for: "
 cat $OUT/changes.rsync.log | grep -v -E '^<f|^cL|^hf'  | grep -v '^*deleting'
 echo
 echo "Press CTRL-C to continue"
+
+touch $OUT/.finished-generating

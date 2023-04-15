@@ -1,9 +1,11 @@
-shell:
-  build: .
-  dockerfile: shell.Dockerfile
-  volumes:
-    - .:/.docker-image-diff/
-    - ./output/:/.docker-image-diff-output/
-  environment:
-    - OUT=/.docker-image-diff-output
-  working_dir: /.docker-image-diff/
+services:
+  shell:
+    build:
+      context: .
+      dockerfile: shell.Dockerfile
+    volumes:
+      - .:/.docker-image-diff/
+      - ./output/:/.docker-image-diff-output/
+    environment:
+      - OUT=/.docker-image-diff-output
+    working_dir: /.docker-image-diff/
