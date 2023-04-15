@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 FINISHED_MARKER=output/.finished-generating
 function shutdown_when_finished() {
     # wait until marker file is created
@@ -21,7 +25,7 @@ shutdown_when_finished &
 
 docker-compose -f rsync-image-diff.docker-compose.yml up
 
-wait
+wait # wait for shutdown_when_finished() to finish
 
 docker-compose -f shell.docker-compose.yml -f process-image-diff.docker-compose.yml run --rm shell ./generate-dockerfile.sh
 cd output; docker build -t $3 .; cd ..
