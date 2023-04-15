@@ -22,10 +22,10 @@ cat $OUT/changes.rsync.log | grep '^*deleting' | grep -v 'tmp\/\.rsyncd\.conf' |
 # Informational output
 echo
 echo "Number of files to add: "
-wc $OUT/files-to-add.list
+wc -l $OUT/files-to-add.list
 echo
 echo "Number of files to remove: "
-wc $OUT/files-to-remove.list
+wc -l $OUT/files-to-remove.list
 echo
 echo "Changes not accounted for: "
 cat $OUT/changes.rsync.log | grep -v -E '^<f|^cL|^hf|^cd'  | grep -v '^*deleting' || [[ $? == 1 ]]
