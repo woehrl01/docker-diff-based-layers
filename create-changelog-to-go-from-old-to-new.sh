@@ -28,8 +28,10 @@ echo "Number of files to remove: "
 wc -l $OUT/files-to-remove.list
 echo
 echo "Changes not accounted for: "
-cat $OUT/changes.rsync.log | grep -v -E '^<f|^cL|^hf|^cd'  | grep -v '^*deleting' || [[ $? == 1 ]]
+cat $OUT/changes.rsync.log | grep -v -E '^<f|^cL|^hf|^cd'  | grep -v '^*deleting' || [[ $? == 1 ]] && echo "None"
 echo
-echo "Press CTRL-C to continue"
+echo "Finished generating changes."
+echo "Set finished-generating marker file."
+echo "Press CTRL-C to continue if not automatically continuing."
 
 touch $OUT/.finished-generating
