@@ -2,6 +2,8 @@
 
 set -e
 
+
+
 FINISHED_MARKER=output/.finished-generating
 function shutdown_when_finished() {
     # wait until marker file is created
@@ -16,7 +18,7 @@ echo "Usage shrink_images.sh <old_image> <new_image> <resultant_image> [RESTRICT
 export RESTRICT_DIFF_TO_PATH=$4
 export OLD_IMAGE=$1
 export NEW_IMAGE=$2
-
+export DOCKER_BUILDKIT=1
 
 rm -rf $FINISHED_MARKER
 
