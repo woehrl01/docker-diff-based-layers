@@ -3,12 +3,14 @@
 set -e
 
 # install rsync
-apt-get update && apt-get install -y rsync
+apt-get update && apt-get install -y rsync && rm -rf /var/lib/apt/lists/*
 
-echo "[root]" > /tmp/.rsyncd.conf;
-echo "path = /" >> /tmp/.rsyncd.conf;
-echo "read only = false" >> /tmp/.rsyncd.conf;
-echo "uid = 0" >> /tmp/.rsyncd.conf;
-echo "gid = 0" >> /tmp/.rsyncd.conf;
+cat <<EOF > /tmp/.rsyncd.conf
+[root]
+path = /
+read only = false
+uid = 0
+gid = 0
+EOF
 
 rsync --daemon --port 873 --no-detach -vv --config /tmp/.rsyncd.conf

@@ -3,7 +3,7 @@
 set -e
 
 # install rsync
-apt-get update && apt-get install -y rsync
+apt-get update && apt-get install -y rsync && rm -rf /var/lib/apt/lists/*
 
 # Use rsync to figure out what changes are necessary to go from old image contents to new
 echo "List of changes necessary to go from old image contents to new: "
