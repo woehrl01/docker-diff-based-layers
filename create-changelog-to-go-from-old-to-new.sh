@@ -5,6 +5,12 @@ set -e
 # install rsync
 apt-get update && apt-get install -y rsync && rm -rf /var/lib/apt/lists/*
 
+# wait until port 873 is open on the host "old"
+while ! nc -z old 873; do
+  echo "Waiting for rsync daemon on old to start..."
+  sleep 1
+done
+
 # Use rsync to figure out what changes are necessary to go from old image contents to new
 echo "List of changes necessary to go from old image contents to new: "
 rsync -a -x --no-times --human-readable --delete-after --checksum --dry-run --itemize-changes --exclude .docker-image-diff "$RESTRICT_DIFF_TO_PATH/" "rsync://rsync@old/root$RESTRICT_DIFF_TO_PATH/" | tee $OUT/changes.rsync.log
