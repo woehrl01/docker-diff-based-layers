@@ -4,6 +4,7 @@ services:
     volumes:
       - .:/.docker-image-diff/
     command: /.docker-image-diff/expose-filesystem-root.sh
+    privileged: true
     expose:
       - "873"
   new_large_layer:
@@ -17,4 +18,5 @@ services:
       - RESTRICT_DIFF_TO_PATH=${RESTRICT_DIFF_TO_PATH}
       - OUT=/.docker-image-diff-output
     working_dir: /.docker-image-diff/
+    privileged: true
     command: /.docker-image-diff/create-changelog-to-go-from-old-to-new.sh
