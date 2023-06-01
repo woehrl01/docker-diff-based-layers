@@ -20,6 +20,8 @@ export OLD_IMAGE=$1
 export NEW_IMAGE=$2
 export DOCKER_BUILDKIT=1
 
+echo "Generating Dockerfile for '$OLD_IMAGE' -> '$NEW_IMAGE' on path '$RESTRICT_DIFF_TO_PATH'"
+
 rm -rf $FINISHED_MARKER
 
 # run shutdown_when_finished() in background
